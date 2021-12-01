@@ -1,6 +1,7 @@
 name: Create Puzzle of Day
 
 on:
+  workflow_dispatch: 
   schedule:
     - cron: '05 5 1-25 12 *'
 
