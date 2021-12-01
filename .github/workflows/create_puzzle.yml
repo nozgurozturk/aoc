@@ -11,17 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: create output dir
-        run: mkdir ${{ github.workspace }}/output
-
       - uses: docker://pandoc/core
         with:
-          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./output/description.md
+          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o description.md
 
       - uses: actions/upload-artifact@master
         with:
           name: description
-          path: ${{ github.workspace }}/output
+          path: ${{ github.workspace }}/description.md
           retention-days: 1
           if-no-files-found: error
 
