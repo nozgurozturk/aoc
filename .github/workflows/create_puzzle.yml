@@ -12,17 +12,18 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: create output dir
-        run: mkdir output
+        run: mkdir ${{ github.workspace }}/output
 
       - uses: docker://pandoc/core
         with:
-          args: -v "/home/runner/work/nozgurozturk/aoc":"/github/workspace" pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./output/description.md
+          args: -v "/home/runner/work/nozgurozturk/aoc":"/github/workspace" pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ${{ github.workspace }}/output/description.md
 
       - uses: actions/upload-artifact@master
         with:
           name: description
-          path: ./output
+          path: ${{ github.workspace }}/output
           retention-days: 1
+          if-no-files-found: error
 
   create-puzzle-files:
     needs: create-puzzle-description
