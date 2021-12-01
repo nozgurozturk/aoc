@@ -16,7 +16,7 @@ jobs:
 
       - uses: docker://pandoc/core
         with:
-          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ${{ github.workspace }}/output/description.md
+          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./output/description.md
 
       - uses: actions/upload-artifact@master
         with:
@@ -40,6 +40,8 @@ jobs:
       - name: run create puzzle script
         run: ./scripts/create_puzzle.sh 2020 3 ${{ secrets.AOC_SESSION }}
         shell: bash
+        env:
+          WORK_DIR: ${{ github.workspace }}
 
       - name: git login
         run:  gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
