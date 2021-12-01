@@ -18,9 +18,11 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: description
-          path: ./description.md
+          path: ${{ github.workspace }}
+          retention-days: 1
 
   create-puzzle-files:
+    needs: create-puzzle-description
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
