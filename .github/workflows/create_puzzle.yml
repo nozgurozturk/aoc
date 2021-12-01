@@ -16,7 +16,7 @@ jobs:
 
       - uses: docker://pandoc/core
         with:
-          args: -v "/home/runner/work/nozgurozturk/aoc":"/github/workspace" pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ${{ github.workspace }}/output/description.md
+          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ${{ github.workspace }}/output/description.md
 
       - uses: actions/upload-artifact@master
         with:
