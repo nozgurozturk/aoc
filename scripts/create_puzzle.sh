@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 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
 function createDay() {
     local year
     local day
