@@ -1,7 +1,7 @@
 name: Create Puzzle of Day
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   schedule:
     - cron: '05 5 1-25 12 *'
 
@@ -11,26 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: create HTML file
-        id: file_html
-        run: |
-          curl https://adventofcode.com/2020/day/3 > puzzle.html
-          mkdir output
-          echo "::set-output name=files::$(printf '"%s" ' *.html)"
-
       - uses: docker://pandoc/core
         with:
-          args: >-
-            pandoc
-            --output=output/description.md
-            -f html
-            -t markdown
-            ${{ steps.file_html.outputs.files }}
+          args: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o description.md
 
       - uses: actions/upload-artifact@master
         with:
           name: description
-          path: output
+          path: ./description.md
 
   create-puzzle-files:
     runs-on: ubuntu-latest
@@ -60,7 +48,7 @@ jobs:
         run: git add .
 
       - name: commit changed files
-        run: git commit -m "add puzzle 2020-3 setup"
+        run: git commit -m "Add puzzle 2020-3 setup"
 
       - name: push changes
         run: git push --set-upstream origin 2020/03
