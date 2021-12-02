@@ -27,6 +27,18 @@ func ParseInts(str string, delimiter string) []int {
 	return integers
 }
 
+type Pair struct {
+	First  string
+	Second int
+}
+
+// ParsePair parse string and integer with a given row and column delimiter to array of tuple []{string, int}
+func ParsePair(str, delimiter string) Pair {
+	p := strings.Split(str, delimiter)
+
+	return Pair{p[0], ParseInt(p[1])}
+}
+
 // SumOf sum of finite integers
 func SumOf(nums ...int) int {
 	sum := 0

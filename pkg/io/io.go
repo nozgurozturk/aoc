@@ -38,3 +38,19 @@ func ReadIntegers(filename string) []int {
 	}
 	return numbers
 }
+
+func ReadPairs(filename string, delimiter string) []math.Pair {
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	var pairs []math.Pair
+	for scanner.Scan() {
+		pairs = append(pairs, math.ParsePair(scanner.Text(), delimiter))
+	}
+	return pairs
+}
