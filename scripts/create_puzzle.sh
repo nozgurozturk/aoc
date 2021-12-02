@@ -65,8 +65,6 @@ EOF
   touch "${dir}/INPUT"
   curl --cookie "session=${session}" "https://adventofcode.com/${year}/day/${day}/input" | cat >> "${dir}/INPUT"
 
-  pwd
-  mv "$WORK_DIR"/temp/description.md "${dir}/README.md"
 }
 
 createDay "$1" "$2" "$3"

@@ -6,39 +6,22 @@ on:
     - cron: '05 5 1-25 12 *'
 
 jobs:
-  create-puzzle-description:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: docker://pandoc/core
-        with:
-          args: -v "/home/runner/work/nozgurozturk/aoc":"/github/workspace" && pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o description.md
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: description
-          path: ${{ github.workspace }}/description.md
-          retention-days: 1
-          if-no-files-found: error
-
   create-puzzle-files:
-    needs: create-puzzle-description
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: download puzzle description
-        uses: actions/download-artifact@v2
-        with:
-          name: description
-          path: temp
+      - name: install pandoc
+        run: |
+          sudo wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
+          sudo dpkg -i pandoc-2.16.2-1-amd64.deb
 
       - name: run create puzzle script
         run: ./scripts/create_puzzle.sh 2020 3 ${{ secrets.AOC_SESSION }}
         shell: bash
-        env:
-          WORK_DIR: ${{ github.workspace }}
+
+      - name: get puzzle description
+        run: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./2020/3/README.md
 
       - name: git login
         run:  gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
