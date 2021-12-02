@@ -18,12 +18,9 @@ jobs:
       - name: set output variables
         id: vars
         run: |
-          echo ::set-output name=year::"2020"
-          echo ::set-output name=day_fixed::"03"
-          echo ::set-output name=day::"3"
-#          echo ::set-output name=year::"$(date +%Y)"
-#          echo ::set-output name=day_fixed::"$(date +%d)"
-#          echo ::set-output name=day::"$(date +%-d)"
+          echo ::set-output name=year::"$(date +%Y)"
+          echo ::set-output name=day_fixed::"$(date +%d)"
+          echo ::set-output name=day::"$(date +%-d)"
 
       - name: run create puzzle script
         run: ./scripts/create_puzzle.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }} ${{ secrets.AOC_SESSION }}
@@ -36,6 +33,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "add initial setup for [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]"
-          title: "Add new puzzle ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}"
-          body: "[AOC](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
+          title: "Add new puzzle [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day }}]"
+          body: "[Advent of Code ${{ steps.vars.outputs.year }} Day ${{ steps.vars.outputs.day }}](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
           branch: ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
