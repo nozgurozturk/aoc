@@ -2,12 +2,14 @@ package main
 
 import (
 	"aoc/pkg/math"
+	"fmt"
 	"testing"
 )
 
 func TestPuzzle(t *testing.T) {
 	tests := []struct {
 		input              []math.Pair
+		aimOn              bool
 		expectedHorizontal int
 		expectedVertical   int
 	}{
@@ -20,14 +22,29 @@ func TestPuzzle(t *testing.T) {
 				{"down", 8},
 				{"forward", 2},
 			},
+			false,
 			15,
 			10,
 		},
+		{
+			[]math.Pair{
+				{"forward", 5},
+				{"down", 5},
+				{"forward", 8},
+				{"up", 3},
+				{"down", 8},
+				{"forward", 2},
+			},
+			true,
+			15,
+			60,
+		},
 	}
 
-	for _, test := range tests {
-		t.Run("", func(t *testing.T) {
-			h, v := Dive(test.input)
+	for i, test := range tests {
+
+		t.Run(fmt.Sprintf("Part %d", i + 1), func(t *testing.T) {
+			h, v := Dive(test.input, test.aimOn)
 
 			if h != test.expectedHorizontal {
 				t.Errorf("expected horizontal %d, result %d\n", test.expectedHorizontal, h)
