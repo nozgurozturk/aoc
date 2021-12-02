@@ -1,8 +1,9 @@
 package io
 
 import (
-	"aoc/pkg/math"
 	"bufio"
+	"github.com/nozgurozturk/aoc/util/gopher/math"
+
 	"os"
 	"strings"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"aoc/pkg/math"
 	"fmt"
+	"github.com/nozgurozturk/aoc/util/gopher/math"
 	"testing"
 )
 
@@ -43,7 +43,7 @@ func TestPuzzle(t *testing.T) {
 
 	for i, test := range tests {
 
-		t.Run(fmt.Sprintf("Part %d", i + 1), func(t *testing.T) {
+		t.Run(fmt.Sprintf("Part %d", i+1), func(t *testing.T) {
 			h, v := Dive(test.input, test.aimOn)
 
 			if h != test.expectedHorizontal {

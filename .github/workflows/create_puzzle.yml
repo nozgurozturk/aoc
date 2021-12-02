@@ -4,10 +4,17 @@ on:
   schedule:
     - cron: '05 5 1-25 12 *'
 jobs:
-  create-puzzle-files:
+
+  create-puzzle:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: set git config
+        run: |
+          git config user.name ${{ github.repository_owner }}
+          git config user.email ${{ secret.USER_EMAIL }}
 
       - name: install pandoc
         run: |
@@ -22,17 +29,36 @@ jobs:
           echo ::set-output name=day_fixed::"$(date +%d)"
           echo ::set-output name=day::"$(date +%-d)"
 
-      - name: run create puzzle script
-        run: ./scripts/create_puzzle.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }} ${{ secrets.AOC_SESSION }}
+      - name: create puzzle directory
+        run: mdkir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
+
+      - name: create input file
+        run: |
+          curl --cookie session=${{ secrets.AOC_SESSION }} https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }}/input > ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/INPUT
+          git commit -am "📨 Add input file for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+
+      - name: create puzzle description
+        run: |
+          pandoc -r html https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }} -t gfm -o ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/README.md
+          git commit -am "📄 Add puzzle description for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+
+      - name: create go files
+        run: ./scripts/create_go_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
         shell: bash
 
-      - name: get puzzle description
-        run: pandoc -r html https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }} -t gfm -o ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/README.md
+      - name: add go files
+        run: git commit -am "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+
+      - name: create rust files
+        run: ./scripts/create_go_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
+        shell: bash
+
+      - name: add rust files
+        run: git commit -am "🦀 Add initial rust setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "add initial setup for [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]"
-          title: "Add new puzzle [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day }}]"
-          body: "[Advent of Code ${{ steps.vars.outputs.year }} Day ${{ steps.vars.outputs.day }}](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
+          title: "🧩 Add new puzzle ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day }}"
+          body: "[🎄 Advent of Code ${{ steps.vars.outputs.year }} Day ${{ steps.vars.outputs.day }} 🎄](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
           branch: ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}

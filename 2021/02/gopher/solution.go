@@ -1,14 +1,14 @@
 package main
 
 import (
-	"aoc/pkg/io"
-	"aoc/pkg/math"
 	"fmt"
+	"github.com/nozgurozturk/aoc/util/gopher/io"
+	"github.com/nozgurozturk/aoc/util/gopher/math"
 	"os"
 	"strconv"
 )
 
-const FileName = "INPUT"
+const FileName = "../INPUT"
 
 var commands = map[string]struct {
 	x int

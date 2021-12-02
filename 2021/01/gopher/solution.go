@@ -1,13 +1,13 @@
 package main
 
 import (
-	"aoc/pkg/io"
-	"aoc/pkg/math"
 	"fmt"
+	"github.com/nozgurozturk/aoc/util/gopher/io"
+	"github.com/nozgurozturk/aoc/util/gopher/math"
 	"os"
 )
 
-const FileName = "INPUT"
+const FileName = "../INPUT"
 
 func main() {
 	depths := io.ReadIntegers(FileName)
@@ -31,7 +31,7 @@ func SonarSweep(depths []int, windowSize int) int {
 		}
 
 		currentSum := math.SumOf(window...)
-		if currentSum > prevSum && prevSum > 0{
+		if currentSum > prevSum && prevSum > 0 {
 			inc++
 		}
 
