@@ -18,7 +18,7 @@ func TestPuzzle(t *testing.T) {
 				{"forward", 8},
 				{"up", 3},
 				{"down", 8},
-				{"down", 2},
+				{"forward", 2},
 			},
 			15,
 			10,
@@ -30,11 +30,11 @@ func TestPuzzle(t *testing.T) {
 			h, v := Dive(test.input)
 
 			if h != test.expectedHorizontal {
-				t.Errorf("expected horizontal %6d, result %6d\n", test.expectedHorizontal, h)
+				t.Errorf("expected horizontal %d, result %d\n", test.expectedHorizontal, h)
 			}
 
 			if v != test.expectedVertical {
-				t.Errorf("expected vertical %6d, result %6d\n", test.expectedVertical, v)
+				t.Errorf("expected vertical %d, result %d\n", test.expectedVertical, v)
 			}
 		})
 	}

@@ -17,5 +17,19 @@ func main() {
 }
 
 func Dive(input []math.Pair) (h int, v int) {
-	panic("not implemented")
+	for _, pair := range input {
+		command := pair.First
+
+		if command == "forward" {
+			h += pair.Second
+		}
+		if command == "up" {
+			v -= pair.Second
+		}
+		if command == "down" {
+			v += pair.Second
+		}
+	}
+
+	return
 }
