@@ -25,9 +25,12 @@ jobs:
       - name: set output variables
         id: vars
         run: |
-          echo ::set-output name=year::"$(date +%Y)"
-          echo ::set-output name=day_fixed::"$(date +%d)"
-          echo ::set-output name=day::"$(date +%-d)"
+          echo ::set-output name=year::"2020"
+          echo ::set-output name=day_fixed::"02"
+          echo ::set-output name=day::"2"
+#          echo ::set-output name=year::"$(date +%Y)"
+#          echo ::set-output name=day_fixed::"$(date +%d)"
+#          echo ::set-output name=day::"$(date +%-d)"
 
       - name: create puzzle directory
         run: mdkir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
