@@ -23,20 +23,11 @@ jobs:
       - name: get puzzle description
         run: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./2020/03/README.md
 
-      - name: git login
-        run:  gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
-
-      - name: create branch
-        run: git checkout -b 2020/03
-
-      - name: check for changes
-        run: git status
-
-      - name: stage changed files
-        run: git add .
-
-      - name: commit changed files
-        run: git commit -m "Add puzzle 2020-3 setup"
-
-      - name: push changes
-        run: git push --set-upstream origin 2020/03
+      - name: create pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: add initial setup for [2020][03]
+          title: Add new puzzle [2020][03]
+          body: https://adventofcode.com/2020/day/3
+          branch: 2020/03
+          draft: true
