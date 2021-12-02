@@ -21,7 +21,7 @@ jobs:
         shell: bash
 
       - name: get puzzle description
-        run: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./2020/3/README.md
+        run: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./2020/03/README.md
 
       - name: git login
         run:  gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
