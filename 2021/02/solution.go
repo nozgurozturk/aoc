@@ -10,6 +10,15 @@ import (
 
 const FileName = "INPUT"
 
+var commands = map[string]struct {
+	x int
+	y int
+}{
+	"forward": {1, 0},
+	"up":      {0, -1},
+	"down":    {0, 1},
+}
+
 func main() {
 	input := io.ReadPairs(FileName, " ")
 	aimOn, _ := strconv.ParseBool(os.Args[1])
@@ -21,30 +30,28 @@ func main() {
 
 func Dive(input []math.Pair, aimOn bool) (h int, v int) {
 	aim := 0
+
 	for _, pair := range input {
 		command := pair.First
 		value := pair.Second
 
-		if command == "forward" {
-			h += value
-			if aimOn {
-				v += aim * value
-			}
+		dir, ok := commands[command]
+		if !ok {
+			continue
 		}
-		if command == "up" {
-			if aimOn {
-				aim -= value
-				continue
-			}
-			v -= value
+
+		hValue := value * dir.x
+		vValue := value * dir.y
+
+		h += hValue
+
+		if aimOn {
+			vValue = aim * hValue
 		}
-		if command == "down" {
-			if aimOn {
-				aim += value
-				continue
-			}
-			v += value
-		}
+
+		v += vValue
+		aim += value * dir.y
+
 	}
 
 	return
