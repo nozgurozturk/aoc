@@ -1,15 +1,14 @@
 name: Create Puzzle of Day
-
 on:
   workflow_dispatch:
   schedule:
     - cron: '05 5 1-25 12 *'
-
 jobs:
   create-puzzle-files:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: install pandoc
         run: |
           sudo wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
@@ -19,9 +18,12 @@ jobs:
       - name: set output variables
         id: vars
         run: |
-          echo ::set-output name=year::"$(date +%Y)"
-          echo ::set-output name=day_fixed::"$(date +%d)"
-          echo ::set-output name=day::"$(date +%-d)"
+          echo ::set-output name=year::"2020"
+          echo ::set-output name=day_fixed::"03"
+          echo ::set-output name=day::"3"
+#          echo ::set-output name=year::"$(date +%Y)"
+#          echo ::set-output name=day_fixed::"$(date +%d)"
+#          echo ::set-output name=day::"$(date +%-d)"
 
       - name: run create puzzle script
         run: ./scripts/create_puzzle.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }} ${{ secrets.AOC_SESSION }}
@@ -33,7 +35,7 @@ jobs:
       - name: create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: add initial setup for [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]
-          title: Add new puzzle [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]
-          body: [AOC - ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }} ](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})
+          commit-message: "add initial setup for [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]"
+          title: "Add new puzzle ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}"
+          body: "[AOC](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
           branch: ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
