@@ -1,54 +1,3 @@
-<div>
-
-<div>
-
-# [Advent of Code](/)
-
--   [\[About\]](/2021/about)
--   [\[Events\]](/2021/events)
--   [\[Shop\]](https://teespring.com/stores/advent-of-code)
--   [\[Log In\]](/2021/auth/login)
-
-</div>
-
-<div>
-
-#    <span class="title-event-wrap">$year=</span>[2021](/2021)<span class="title-event-wrap">;</span>
-
--   [\[Calendar\]](/2021)
--   [\[AoC++\]](/2021/support)
--   [\[Sponsors\]](/2021/sponsors)
--   [\[Leaderboard\]](/2021/leaderboard)
--   [\[Stats\]](/2021/stats)
-
-</div>
-
-</div>
-
-<div id="sidebar">
-
-<div id="sponsor">
-
-<div class="quiet">
-
-Our [sponsors](/2021/sponsors) help make Advent of Code possible:
-
-</div>
-
-<div class="sponsor">
-
-[Infi](https://aoc.infi.nl/?utm_source=aoc&utm_campaign=aoc2021&utm_placement=pagina) -
-Santa wil zijn elfjes speelgoed laten maken, maar hij heeft zijn
-administratie nog niet op orde. Kan jij hem helpen met het uitzoeken?
-
-</div>
-
-</div>
-
-</div>
-
-<div role="main">
-
 ## --- Day 2: Dive! ---
 
 Now, you need to figure out how to <span
@@ -92,11 +41,3 @@ of `15` and a depth of `10`. (Multiplying these together produces
 Calculate the horizontal position and depth you would have after
 following the planned course. *What do you get if you multiply your
 final horizontal position by your final depth?*
-
-To play, please identify yourself via one of these services:
-
-[\[GitHub\]](/auth/github) [\[Google\]](/auth/google)
-[\[Twitter\]](/auth/twitter) [\[Reddit\]](/auth/reddit) <span
-class="quiet">- [\[How Does Auth Work?\]](/about#faq_auth)</span>
-
-</div>
