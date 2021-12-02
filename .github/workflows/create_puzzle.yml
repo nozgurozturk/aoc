@@ -10,24 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: install pandoc
         run: |
           sudo wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
           sudo dpkg -i pandoc-2.16.2-1-amd64.deb
+          rm -rf pandoc-2.16.2-1-amd64.deb
+
+      - name: set output variables
+        id: vars
+        run: |
+          echo ::set-output name=year::"$(date +%Y)"
+          echo ::set-output name=day_fixed::"$(date +%d)"
+          echo ::set-output name=day::"$(date +%-d)"
 
       - name: run create puzzle script
-        run: ./scripts/create_puzzle.sh 2020 3 ${{ secrets.AOC_SESSION }}
+        run: ./scripts/create_puzzle.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }} ${{ secrets.AOC_SESSION }}
         shell: bash
 
       - name: get puzzle description
-        run: pandoc -r html https://adventofcode.com/2020/day/3 -t gfm -o ./2020/03/README.md
+        run: pandoc -r html https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }} -t gfm -o ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/README.md
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: add initial setup for [2020][03]
-          title: Add new puzzle [2020][03]
-          body: https://adventofcode.com/2020/day/3
-          branch: 2020/03
-          draft: true
+          commit-message: add initial setup for [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]
+          title: Add new puzzle [${{ steps.vars.outputs.year }}][${{ steps.vars.outputs.day_fixed }}]
+          body: [AOC - ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }} ](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})
+          branch: ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
