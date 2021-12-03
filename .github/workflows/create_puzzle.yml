@@ -36,14 +36,16 @@ jobs:
         run: mkdir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
 
       - name: create input file
-        run: |
-          curl --cookie session=${{ secrets.AOC_SESSION }} https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }}/input > ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/INPUT
-          git commit -am "📨 Add input file for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+        run: curl --cookie session=${{ secrets.AOC_SESSION }} https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }}/input > ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/INPUT
+
+      - name: add input file
+        run: git commit -am "📨 Add input file for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: create puzzle description
-        run: |
-          pandoc -r html https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }} -t gfm -o ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/README.md
-          git commit -am "📄 Add puzzle description for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+        run: pandoc -r html https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }} -t gfm -o ./${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}/README.md
+
+      - name: add puzzle description
+        run: git commit -am "📄 Add puzzle description for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: create go files
         run: ./scripts/create_go_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
