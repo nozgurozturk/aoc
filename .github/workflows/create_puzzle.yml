@@ -28,9 +28,9 @@ jobs:
           echo ::set-output name=year::"2020"
           echo ::set-output name=day_fixed::"02"
           echo ::set-output name=day::"2"
-#          echo ::set-output name=year::"$(date +%Y)"
-#          echo ::set-output name=day_fixed::"$(date +%d)"
-#          echo ::set-output name=day::"$(date +%-d)"
+      #          echo ::set-output name=year::"$(date +%Y)"
+      #          echo ::set-output name=day_fixed::"$(date +%d)"
+      #          echo ::set-output name=day::"$(date +%-d)"
 
       - name: create puzzle directory
         run: mkdir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
@@ -50,6 +50,9 @@ jobs:
         run: |
           git add .
           git commit -am "📄 Add puzzle description for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+
+      - name: change scripts permissions
+        run: chmod +x ./scripts
 
       - name: create go files
         run: ./scripts/create_go_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
