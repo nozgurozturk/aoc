@@ -59,14 +59,18 @@ jobs:
         shell: bash
 
       - name: add go files
-        run: git commit -am "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+        run: |
+          git add .
+          git commit -m "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: create rust files
         run: ./scripts/create_rust_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
         shell: bash
 
       - name: add rust files
-        run: git commit -am "🦀 Add initial rust setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+        run: |
+          git add .
+          git commit -m "🦀 Add initial rust setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v3
