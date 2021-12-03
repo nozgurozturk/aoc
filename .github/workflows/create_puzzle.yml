@@ -52,7 +52,7 @@ jobs:
           git commit -am "📄 Add puzzle description for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
 
       - name: change scripts permissions
-        run: chmod +x ./scripts
+        run: chmod -R +x ./scripts/
 
       - name: create go files
         run: ./scripts/create_go_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
