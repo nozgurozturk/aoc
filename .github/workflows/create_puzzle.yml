@@ -33,7 +33,7 @@ jobs:
 #          echo ::set-output name=day::"$(date +%-d)"
 
       - name: create puzzle directory
-        run: mdkir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
+        run: mkdir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
 
       - name: create input file
         run: |
