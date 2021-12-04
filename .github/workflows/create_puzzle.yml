@@ -25,9 +25,9 @@ jobs:
       - name: set output variables
         id: vars
         run: |
-          echo ::set-output name=year::"2021"
-          echo ::set-output name=day_fixed::"03"
-          echo ::set-output name=day::"3"
+          echo ::set-output name=year::"$(date +%Y)"
+          echo ::set-output name=day_fixed::"$(date +%d)"
+          echo ::set-output name=day::"$(date +%-d)"
 
       - name: create puzzle directory
         run: mkdir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
