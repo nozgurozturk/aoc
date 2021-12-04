@@ -19,7 +19,7 @@ function create_rust_solution() {
 
   cat <<EOF > "${dir}/Cargo.toml"
 [package]
-name = "aoc$'year'_$(printf "%02d" "${day}")"
+name = "aoc${year}_$(printf "%02d" "${day}")"
 version = "0.1.0"
 authors = ["n.ozgurozturk <ozgur@nozgurozturk.com>"]
 edition = "2018"

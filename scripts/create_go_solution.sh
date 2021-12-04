@@ -18,7 +18,7 @@ function create_go_solution() {
   mkdir -p "${dir}"
 
   cat <<EOF > "${dir}/go.mod"
-module aoc$'year'_$(printf "%02d" "${day}")
+module aoc${year}_$(printf "%02d" "${day}")
 
 go 1.17
 

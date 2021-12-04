@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestPuzzle(t *testing.T) {
+func TestDive(t *testing.T) {
 	tests := []struct {
 		input              []math.Pair
 		aimOn              bool

@@ -25,12 +25,12 @@ jobs:
       - name: set output variables
         id: vars
         run: |
-          echo ::set-output name=year::"2020"
-          echo ::set-output name=day_fixed::"02"
-          echo ::set-output name=day::"2"
-      #          echo ::set-output name=year::"$(date +%Y)"
-      #          echo ::set-output name=day_fixed::"$(date +%d)"
-      #          echo ::set-output name=day::"$(date +%-d)"
+#          echo ::set-output name=year::"$(date +%Y)"
+#          echo ::set-output name=day_fixed::"$(date +%d)"
+#          echo ::set-output name=day::"$(date +%-d)"
+          echo ::set-output name=year::"2021"
+          echo ::set-output name=day_fixed::"03"
+          echo ::set-output name=day::"3"
 
       - name: create puzzle directory
         run: mkdir -p ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
@@ -61,20 +61,20 @@ jobs:
       - name: add go files
         run: |
           git add .
-          git commit -m "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+          git commit -m "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day_fixed }}"
 
       - name: create rust files
-        run: ./scripts/create_rust_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
+        run: ./scripts/create_rust_solution.sh ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day }}
         shell: bash
 
       - name: add rust files
         run: |
           git add .
-          git commit -m "🦀 Add initial rust setup for ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day_fixed }}"
+          git commit -m "🦀 Add initial rust setup for ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day_fixed }}"
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "🧩 Add new puzzle ${{ steps.vars.outputs.year }} - ${{ steps.vars.outputs.day }}"
-          body: "[🎄 Advent of Code ${{ steps.vars.outputs.year }} Day ${{ steps.vars.outputs.day }} 🎄](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
+          title: "🧩 Add new puzzle ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day_fixed }}"
+          body: "[🎄 Advent of Code ${{ steps.vars.outputs.year }} Day ${{ steps.vars.outputs.day_fixed }} 🎄](https://adventofcode.com/${{ steps.vars.outputs.year }}/day/${{ steps.vars.outputs.day }})"
           branch: ${{ steps.vars.outputs.year }}/${{ steps.vars.outputs.day_fixed }}
