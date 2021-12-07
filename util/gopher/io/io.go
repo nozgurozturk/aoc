@@ -32,7 +32,6 @@ func ReadIntegers(filename string) []int {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
 	var numbers []int
 	for scanner.Scan() {
 		numbers = append(numbers, math.ParseInt(scanner.Text()))

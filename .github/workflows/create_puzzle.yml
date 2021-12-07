@@ -61,7 +61,7 @@ jobs:
           git commit -m "🐿 Add initial golang setup for ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day_fixed }}"
 
       - name: create rust files
-        run: ./scripts/create_rust_solution.sh ${{ steps.vars.outputs.year }}-${{ steps.vars.outputs.day }}
+        run: ./scripts/create_rust_solution.sh ${{ steps.vars.outputs.year }} ${{ steps.vars.outputs.day }}
         shell: bash
 
       - name: add rust files

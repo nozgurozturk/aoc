@@ -32,7 +32,7 @@ EOF
   cat <<EOF > "${dir}/solution.go"
 package main
 
-const FileName = "INPUT"
+const FileName = "../INPUT"
 
 func main(){
   Puzzle()
