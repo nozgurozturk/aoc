@@ -39,6 +39,22 @@ func ParsePair(str, delimiter string) Pair {
 	return Pair{p[0], ParseInt(p[1])}
 }
 
+// Max maximum of two integer
+func Max(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
+
+// Min minimum of two integer
+func Min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 // SumOf sum of finite integers
 func SumOf(nums ...int) int {
 	sum := 0
