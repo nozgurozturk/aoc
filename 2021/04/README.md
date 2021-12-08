@@ -1,53 +1,3 @@
-<div>
-
-<div>
-
-# [Advent of Code](/)
-
--   [\[About\]](/2021/about)
--   [\[Events\]](/2021/events)
--   [\[Shop\]](https://teespring.com/stores/advent-of-code)
--   [\[Log In\]](/2021/auth/login)
-
-</div>
-
-<div>
-
-#        <span class="title-event-wrap">λy.</span>[2021](/2021)<span class="title-event-wrap"></span>
-
--   [\[Calendar\]](/2021)
--   [\[AoC++\]](/2021/support)
--   [\[Sponsors\]](/2021/sponsors)
--   [\[Leaderboard\]](/2021/leaderboard)
--   [\[Stats\]](/2021/stats)
-
-</div>
-
-</div>
-
-<div id="sidebar">
-
-<div id="sponsor">
-
-<div class="quiet">
-
-Our [sponsors](/2021/sponsors) help make Advent of Code possible:
-
-</div>
-
-<div class="sponsor">
-
-[Codethink](https://www.codethink.co.uk/) - Open Source System Software
-Experts
-
-</div>
-
-</div>
-
-</div>
-
-<div role="main">
-
 ## --- Day 4: Giant Squid ---
 
 You're already almost 1.5km (almost a mile) below the surface of the
@@ -55,8 +5,7 @@ ocean, already so deep that you can't see any sunlight. What you *can*
 see, however, is a giant squid that has attached itself to the outside
 of your submarine.
 
-Maybe it wants to play
-[bingo](https://en.wikipedia.org/wiki/Bingo_(American_version))?
+Maybe it wants to play [bingo](https://en.wikipedia.org/wiki/Bingo_(American_version))?
 
 Bingo is played on a set of boards each consisting of a 5x5 grid of
 numbers. Numbers are chosen at random, and the chosen number is *marked*
@@ -93,28 +42,28 @@ After the first five numbers are drawn (`7`, `4`, `9`, `5`, and `11`),
 there are no winners, but the boards are marked as follows (shown here
 adjacent to each other to save space):
 
-    22 13 17 11  0         3 15  0  2 22        14 21 17 24  4
-     8  2 23  4 24         9 18 13 17  5        10 16 15  9 19
-    21  9 14 16  7        19  8  7 25 23        18  8 23 26 20
-     6 10  3 18  5        20 11 10 24  4        22 11 13  6  5
-     1 12 20 15 19        14 21 16 12  6         2  0 12  3  7
+     22  13  17 .11   0          3  15   0   2  22          14  21  17  24 . 4
+      8   2  23 . 4  24        . 9  18  13  17 . 5          10  16  15 . 9  19
+     21 . 9  14  16 . 7         19   8 . 7  25  23          18   8  23  26  20
+      6  10   3  18 . 5         20 .11  10  24 . 4          22 .11  13   6 . 5
+      1  12  20  15  19         14  21  16  12   6           2   0  12   3 . 7
 
 After the next six numbers are drawn (`17`, `23`, `2`, `0`, `14`, and
 `21`), there are still no winners:
 
-    22 13 17 11  0         3 15  0  2 22        14 21 17 24  4
-     8  2 23  4 24         9 18 13 17  5        10 16 15  9 19
-    21  9 14 16  7        19  8  7 25 23        18  8 23 26 20
-     6 10  3 18  5        20 11 10 24  4        22 11 13  6  5
-     1 12 20 15 19        14 21 16 12  6         2  0 12  3  7
+     22  13 .17 .11 . 0          3  15 . 0 . 2  22        .14 .21 .17  24 . 4
+      8 . 2 .23 . 4  24        . 9  18  13 .17 . 5         10  16  15 . 9  19
+    .21 . 9 .14  16 . 7         19   8 . 7  25 .23         18   8 .23  26  20
+      6  10   3  18 . 5         20 .11  10  24 . 4         22 .11  13   6 . 5
+      1  12  20  15  19        .14 .21  16  12   6        . 2 . 0  12   3 . 7
 
 Finally, `24` is drawn:
 
-    22 13 17 11  0         3 15  0  2 22        14 21 17 24  4
-     8  2 23  4 24         9 18 13 17  5        10 16 15  9 19
-    21  9 14 16  7        19  8  7 25 23        18  8 23 26 20
-     6 10  3 18  5        20 11 10 24  4        22 11 13  6  5
-     1 12 20 15 19        14 21 16 12  6         2  0 12  3  7
+     22  13 .17 .11 . 0          3  15 . 0 . 2  22        .14 .21 .17 .24 . 4
+      8 . 2 .23 . 4 .24        . 9  18  13 .17 . 5         10  16  15 . 9  19
+    .21 . 9 .14  16 . 7         19   8 . 7  25 .23         18   8 .23  26  20
+      6  10   3  18 . 5         20 .11  10 .24 . 4         22 .11  13   6 . 5
+      1  12  20  15  19        .14 .21  16  12   6        . 2 . 0  12   3 . 7
 
 At this point, the third board *wins* because it has at least one
 complete row or column of marked numbers (in this case, the entire top
@@ -128,11 +77,3 @@ when the board won, `24`, to get the final score, `188 * 24 = 4512`.
 To guarantee victory against the giant squid, figure out which board
 will win first. *What will your final score be if you choose that
 board?*
-
-To play, please identify yourself via one of these services:
-
-[\[GitHub\]](/auth/github) [\[Google\]](/auth/google)
-[\[Twitter\]](/auth/twitter) [\[Reddit\]](/auth/reddit) <span
-class="quiet">- [\[How Does Auth Work?\]](/about#faq_auth)</span>
-
-</div>

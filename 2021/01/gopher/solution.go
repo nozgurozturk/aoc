@@ -10,7 +10,7 @@ import (
 const FileName = "../INPUT"
 
 func main() {
-	depths := io.ReadIntegers(FileName)
+	depths := io.ReadIntegers(FileName, math.MinUInt, math.MaxUInt)
 	windowSize := math.ParseInt(os.Args[1])
 
 	result := SonarSweep(depths, windowSize)

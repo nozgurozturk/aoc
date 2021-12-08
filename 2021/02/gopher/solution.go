@@ -20,7 +20,7 @@ var commands = map[string]struct {
 }
 
 func main() {
-	input := io.ReadPairs(FileName, " ")
+	input := io.ReadPairs(FileName, " ", math.MinUInt, math.MaxUInt)
 	aimOn, _ := strconv.ParseBool(os.Args[1])
 
 	h, v := Dive(input, aimOn)

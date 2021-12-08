@@ -6,6 +6,9 @@ import (
 	"strings"
 )
 
+const MaxUInt = ^uint(0)
+const MinUInt = 0
+
 // ParseInt parse string to int
 func ParseInt(str string) int {
 	integer, err := strconv.Atoi(str)
@@ -14,17 +17,6 @@ func ParseInt(str string) int {
 	}
 
 	return integer
-}
-
-// ParseInts parse string with a given delimiter to array of int
-func ParseInts(str string, delimiter string) []int {
-	strs := strings.Split(str, delimiter)
-	integers := make([]int, len(strs), len(strs))
-
-	for i, s := range strs {
-		integers[i] = ParseInt(s)
-	}
-	return integers
 }
 
 type Pair struct {
