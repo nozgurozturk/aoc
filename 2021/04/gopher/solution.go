@@ -4,19 +4,99 @@ import (
 	"fmt"
 	"github.com/nozgurozturk/aoc/util/gopher/io"
 	"github.com/nozgurozturk/aoc/util/gopher/math"
+	"strings"
 )
 
 const FileName = "../INPUT"
 
 func main() {
-	drawnNumbers := io.ReadIntegers(FileName, 0, 2)
-	matrices := io.ReadMatrices(FileName, 2, math.MaxUInt)
+	drawnNumbersInput := io.ReadStrings(FileName, 0, 1)
+	drawNumbersSplit := strings.Split(drawnNumbersInput[0], ",")
+	drawnNumbers := make([]int, len(drawNumbersSplit), len(drawNumbersSplit))
+	for i, s := range drawNumbersSplit {
+		drawnNumbers[i] = math.ParseInt(s)
+	}
 
+	matrices := io.ReadMatrices(FileName, 2, math.MaxUInt)
 	score := GiantSquid(drawnNumbers, matrices)
 
 	fmt.Println(score)
 }
 
+func transpose(matrix [][]int) [][]int {
+	transposed := make([][]int, len(matrix))
+
+	for i, row := range matrix {
+		transposed[i] = make([]int, len(row))
+		for j, _ := range matrix {
+			transposed[i][j] = matrix[j][i]
+		}
+	}
+	return transposed
+}
+
+func checkColumns(matrix [][]int) bool {
+
+	for _, column := range transpose(matrix) {
+		marked := 0
+		for _, num := range column {
+			if num == -1 {
+				marked++
+			}
+		}
+		if marked == len(column) {
+			return true
+		}
+	}
+	return false
+}
+
+func checkRows(matrix [][]int) bool {
+	for _, row := range matrix {
+		marked := 0
+		for _, num := range row {
+			if num == -1 {
+				marked++
+			}
+		}
+		if marked == len(row) {
+			return true
+		}
+	}
+	return false
+}
+
+func sumOfMatrix(matrix [][]int) int {
+	sum := 0
+	for _, row := range matrix {
+		for _, num := range row {
+			if num != -1 {
+				sum += num
+			}
+		}
+	}
+
+	return sum
+}
+
 func GiantSquid(drawnNumbers []int, matrices [][][]int) int {
-	panic("not implemented")
+
+
+	for _, number := range drawnNumbers {
+		for _, matrix := range matrices {
+			for _, row := range matrix {
+				for columnIndex, num := range row {
+					if num != number {
+						continue
+					}
+					row[columnIndex] = -1
+				}
+			}
+			if checkRows(matrix) || checkColumns(matrix) {
+				return number * sumOfMatrix(matrix)
+			}
+		}
+	}
+
+	return 0
 }

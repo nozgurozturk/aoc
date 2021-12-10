@@ -46,7 +46,7 @@ func ReadIntegers(filename string, from, to uint) []int {
 		if i < from {
 			continue
 		}
-		if i > to && to > 0 {
+		if i > to {
 			break
 		}
 		numbers = append(numbers, math.ParseInt(scanner.Text()))
@@ -93,6 +93,7 @@ func ReadMatrices(filename string, from, to uint) [][][]int {
 		if i < from {
 			continue
 		}
+
 		if i > to {
 			break
 		}
@@ -108,9 +109,11 @@ func ReadMatrices(filename string, from, to uint) [][][]int {
 		for j := 0; j < len(splits); j++ {
 			row = append(row, math.ParseInt(splits[j]))
 		}
-
 		matrix = append(matrix, row)
+	}
 
+	if matrix != nil {
+		matrices = append(matrices, matrix)
 	}
 
 	return matrices
