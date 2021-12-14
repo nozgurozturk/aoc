@@ -10,6 +10,8 @@ import (
 const FileName = "../INPUT"
 
 func main() {
+	findLast := false
+
 	drawnNumbersInput := io.ReadStrings(FileName, 0, 1)
 	drawNumbersSplit := strings.Split(drawnNumbersInput[0], ",")
 	drawnNumbers := make([]int, len(drawNumbersSplit), len(drawNumbersSplit))
@@ -18,7 +20,7 @@ func main() {
 	}
 
 	matrices := io.ReadMatrices(FileName, 2, math.MaxUInt)
-	score := GiantSquid(drawnNumbers, matrices)
+	score := GiantSquid(drawnNumbers, matrices, findLast)
 
 	fmt.Println(score)
 }
@@ -79,9 +81,7 @@ func sumOfMatrix(matrix [][]int) int {
 	return sum
 }
 
-func GiantSquid(drawnNumbers []int, matrices [][][]int) int {
-
-
+func findWinnerScore(drawnNumbers []int, matrices [][][]int) int {
 	for _, number := range drawnNumbers {
 		for _, matrix := range matrices {
 			for _, row := range matrix {
@@ -93,10 +93,52 @@ func GiantSquid(drawnNumbers []int, matrices [][][]int) int {
 				}
 			}
 			if checkRows(matrix) || checkColumns(matrix) {
-				return number * sumOfMatrix(matrix)
+				return sumOfMatrix(matrix) * number
+			}
+		}
+	}
+	return ^0
+}
+
+func findLoserScore(drawnNumbers []int, matrices [][][]int) int {
+
+	m := make([][][]int, len(matrices))
+	copy(m, matrices)
+	var n int
+	var lastWinner [][]int
+	for _, number := range drawnNumbers {
+
+		for _, matrix := range m {
+			fmt.Println(matrix, number)
+			for _, row := range matrix {
+				for columnIndex, num := range row {
+					if num != number {
+						continue
+					}
+					row[columnIndex] = -1
+				}
+			}
+			if checkRows(matrix) || checkColumns(matrix) {
+				n = number
+				lastWinner = matrix
+				//m = append(matrices[:matrixIndex], matrices[matrixIndex+1:]...)
 			}
 		}
 	}
 
-	return 0
+	if lastWinner != nil {
+		return sumOfMatrix(lastWinner) * n
+	}
+
+	return ^0
+}
+
+func GiantSquid(drawnNumbers []int, matrices [][][]int, findLast bool) int {
+
+	if findLast {
+		return findLoserScore(drawnNumbers, matrices)
+	} else {
+		return findWinnerScore(drawnNumbers, matrices)
+	}
+
 }
